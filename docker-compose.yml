@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  jsapiexample:
+    image: bleakview/jsapiexample:1.0.0
+    container_name: jsapiexample
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      - DB_CONNECTION_URL=mysql://root:secret@mysqldb:3306/book
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    networks:
+      - jsapiexample_network
+
+  mysqldb:
+    image: mysql:8.0.29-debian
+    container_name: mysqlforjsexampleapi
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: book
+    networks:
+      - jsapiexample_network
+    healthcheck:
+      test: "mysql -uroot -psecret book -e 'select 1'"
+      interval: 10s
+      timeout: 2s
+      retries: 20
+networks:
+  jsapiexample_network:
+    driver: bridge

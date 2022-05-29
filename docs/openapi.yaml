@@ -1,0 +1,203 @@
+openapi: 3.0.2
+info:
+  title: Books DB application
+  description: |
+
+    This API handles books operations. 
+
+    ## Operations
+
+    With this API you can:
+
+    * **Create book** 
+    * **Update book** 
+    * **Get all books**
+    * **Get specific book with {id}**
+  contact:
+    name: Mustafa Unal
+    url: https://github.com/bleakview/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+paths:
+  /books:
+    get:
+      tags:
+        - get books
+      summary: Get All Books
+      operationId: get_all_books_books_get
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    post:
+      tags:
+        - post book
+      summary: Create Book
+      operationId: create_book_books_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequestModel"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookResponseModel"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+  /books/{id}:
+    get:
+      tags:
+        - get book
+      summary: Get Book
+      operationId: get_book_books__id__get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+            type: string
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+    put:
+      tags:
+        - put book
+      summary: Update Book
+      operationId: update_book_books__id__put
+      parameters:
+        - required: true
+          schema:
+            title: Id
+            type: string
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequestModel"
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPValidationError"
+components:
+  schemas:
+    BookRequestModel:
+      title: Book Request Model
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+          description: name of book
+        author:
+          title: Author
+          type: string
+          description: books author
+        release_year:
+          title: Release Year
+          type: integer
+          description: book release year
+        isbn:
+          title: Isbn
+          type: string
+          description: isbn number
+      description: Book Model for API
+    BookResponseModel:
+      title: Book Response Model
+      type: object
+      properties:
+        id:
+          title: Id
+          type: string
+          description: book id
+        name:
+          title: Name
+          type: string
+          description: name of book
+        author:
+          title: Author
+          type: string
+          description: books author
+        release_year:
+          title: Release Year
+          type: integer
+          description: book release year
+        isbn:
+          title: Isbn
+          type: string
+          description: isbn number
+      description: Book Model for API
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationError"
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+tags:
+  - name: get books
+    description: Get all books saved.
+  - name: get book
+    description: Get specific book with given **{id}**
+  - name: put book
+    description: Updates book with given **{id}**
+    value:
+      book_id: Book id
+  - name: post book
+    description: Insert new book
