@@ -1,7 +1,7 @@
 # JSApiExample
 
 Hi ! This is an example written in Node js for a start point on how to write a KOA with Sequilize.
-It supports testing with jest and you can test api with swagger via http://localhost:<port>/docs.
+It supports testing with jest and you can test api with swagger via http://localhost:\<port>/docs.
 If you invoke docker with docker run --name jsapiexample -d -p 3000:3000 bleakview/jsapiexample:1.0.0 you can reach swagger with http://localhost:3000/docs
 If you directly run docker container it will use sqlite.
 You can use docker compose it will start app with mysql.
