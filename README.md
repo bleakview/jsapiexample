@@ -1,3 +1,5 @@
+[![publish to docker registry](https://github.com/bleakview/jsapiexample/actions/workflows/push_to_docker_hub.yml/badge.svg)](https://github.com/bleakview/jsapiexample/actions/workflows/push_to_docker_hub.yml)
+
 # JSApiExample
 
 Hi ! This is an example written in Node js for a start point on how to write a KOA with Sequilize.
