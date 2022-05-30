@@ -13,4 +13,4 @@ mysql+aiomysql://\<username>:\<password>@\<mysql host>:\<mysql port>/\<mysql dat
 the environment variable is DB_CONNECTION_URL.
 
 On very change code test will be run and a new docker image will bu pushed to
-[https://hub.docker.com/repository/docker/bleakview/jsapiexample](https://hub.docker.com/repository/docker/bleakview/jsapiexample).
+[https://hub.docker.com/r/bleakview/jsapiexample](https://hub.docker.com/r/bleakview/jsapiexample).
