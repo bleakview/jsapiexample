@@ -22,8 +22,9 @@ router
   .post("/books", async (ctx, next) => {
     //block if anyone try to alter id
     delete ctx.request.body["id"];
-    await sequelize.models.book.create(ctx.request.body);
+    const createdBook = await sequelize.models.book.create(ctx.request.body);
     ctx.status = 200;
+    ctx.body = createdBook;
     await next();
   })
   .put("/books/:id", async (ctx, next) => {

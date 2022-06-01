@@ -54,11 +54,21 @@ test("/books/id after put works works", async () => {
   });
 });
 test("/books/ post works", async () => {
-  const response = await request(app.callback()).post("/books/").send({
-    name: "name test",
-    author: "author test",
+  let postObject = {
+    name: "name test post",
+    author: "author test post",
     release_year: 1981,
-    isbn: "isbn test",
-  });
+    isbn: "isbn test post",
+  };
+  const response = await request(app.callback())
+    .post("/books/")
+    .send(postObject);
   expect(response.status).toBe(200);
+  var newObject = JSON.parse(response.text);
+  const cretaedResponse = await request(app.callback()).get(
+    "/books/" + newObject.id
+  );
+  postObject["id"] = newObject.id;
+  expect(response.status).toBe(200);
+  expect(JSON.parse(cretaedResponse.text)).toEqual(postObject);
 });
